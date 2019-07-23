@@ -204,11 +204,14 @@ colnames(zbior)[9] <- "X3"
 #zbior$`Team 2` <- str_replace(zbior$`Team 2`, " \\(.*\\)", "")
 #test$`Team 2` <- str_replace(zbior$`Team 2`, " \\(.*\\)", "")
 
-wynik_ht <- ifelse(zbior$X3 > zbior$X4, zbior$`Team 2`,
-            ifelse(zbior$X3 < zbior$X4,zbior$`Team 1`,'draw'))
-wynik_ht <- data.frame(wynik_ht, stringsAsFactors = FALSE)
-sort_most_win <- as.data.frame(table(unlist(wynik_ht)))
-c <- sort_most_win[order(-sort_most_win$Freq),]
+wynik_ht <- ifelse(zbior$X3 > zbior$X4, zbior$`Team 2`, 
+                ifelse(zbior$X3 < zbior$X4, zbior$`Team 1`, 
+                       ifelse(zbior$X3 == zbior$X4, "draw", "draw")
+                )
+)
+
+sort_most_win_ht <- as.data.frame(table(unlist(wynik_ht)))
+c <- sort_most_win_ht[order(-sort_most_win_ht$Freq),]
 
 #d. (jeśli jest jeden taki zespół) zespół, 
 #który uzyskał największą przewagę punktową 
