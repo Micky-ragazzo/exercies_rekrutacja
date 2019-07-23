@@ -1,16 +1,18 @@
-library(data.table)
-library(readr)
-library(dplyr)
-library(tidyverse)
-library(gdata)
-library(tidyr)
-
-# #Premiership & Divs 1, 2, 3 & Conference -Engalnd
+# library(data.table)
+# library(readr)
+# library(dplyr)
+# library(gdata)
+# library(tidyr)
+# library(stringr)
+# library(readr)
+# library(dplyr)
+# library(tidyverse)
+#Premiership & Divs 1, 2, 3 & Conference -Engalnd
 # url = "https://github.com/footballcsv/england/archive/master.zip";
 # download.file(url, "master.zip") # download file
 # unzip("master.zip", exdir = "data") # unzip files
 # file.remove("master.zip") # tidy up by removing the zip file
-# 
+#
 # #Premiership & Divs 1, 2 & 3 - Scotland
 # url = "https://github.com/footballcsv/scotland/archive/master.zip";
 # download.file(url, "master.zip") # download file
@@ -72,92 +74,145 @@ library(tidyr)
 # unzip("master.zip", exdir = "data") # unzip files
 # file.remove("master.zip") # tidy up by removing the zip file
 
-library(stringr)
-library(readr)
-library(dplyr)
-library(tidyverse)
-
 #generowanie jednego pliku eng.1. 
-eng.1. <- list.files(pattern = "eng.1.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-eng.2. <- list.files(pattern = "eng.2.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-eng.3. <- list.files(pattern = "eng.3.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-eng.4. <- list.files(pattern = "eng.4.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-eng.5. <- list.files(pattern = "eng.5.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-
-eng.3a. <- list.files(pattern = "eng.3a.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-eng.3b. <- list.files(pattern = "eng.3b.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-
-eng <- list.files(pattern = ".*(eng).*csv$", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-
-bel <- list.files(pattern = "1-proleague.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
-
-# de.1. <- list.files(pattern = "de.1.csv", recursive = TRUE) %>% 
+# eng.1. <- list.files(pattern = "eng.1.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng.2. <- list.files(pattern = "eng.2.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng.3. <- list.files(pattern = "eng.3.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng.4. <- list.files(pattern = "eng.4.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng.5. <- list.files(pattern = "eng.5.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng.3a. <- list.files(pattern = "eng.3a.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng.3b. <- list.files(pattern = "eng.3b.csv", recursive = TRUE) %>% 
+#   lapply(read_csv) %>% 
+#   bind_rows 
+# eng <- list.files(pattern = ".*(eng).*csv$", recursive = TRUE) %>% 
 #   lapply(read_csv) %>% 
 #   bind_rows 
 # 
-# de.2. <- list.files(pattern = "de.2.csv", recursive = TRUE) %>% 
+# bel <- list.files(pattern = "1-proleague.csv", recursive = TRUE) %>%
+#   lapply(read_csv) %>%
+#   bind_rows
+# 
+# de.1. <- list.files(pattern = "de.1.csv", recursive = TRUE) %>%
+#   purrr::map_df(~{
+#     x <- readr::read_csv(.)
+#     x[setdiff(names(x), "Round")]
+#   })
+# de.2. <- list.files(pattern = "de.2.csv", recursive = TRUE) %>%
+#   lapply(read_csv) %>%
+#   bind_rows
+# 
+# de <- list.files(pattern = ".*(de).*csv$", recursive = TRUE) %>%
+#   purrr::map_df(~{
+#         x <- readr::read_csv(.)
+#         x[setdiff(names(x), "Round")]
+#       })
+
+es.1. <- list.files(pattern = "es.1.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+es.2. <- list.files(pattern = "es.2.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+es <- list.files(pattern = ".*(es).*csv$", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+div.1 <- list.files(pattern = "1-division1.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+div.2 <- list.files(pattern = "2-division2.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+ligue.1. <- list.files(pattern = "1-ligue1.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+ligue.2. <- list.files(pattern = "2-ligue2.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+france <- list.files(pattern = ".*(ligue|division).*csv$", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+#Greece
+gree1 <- list.files(pattern = "1-alphaethniki.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+gree2 <- list.files(pattern = "1-superleague.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+
+greece <- list.files(pattern = ".*(alphaethniki|superleague).*csv$", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+# superlig <- list.files(pattern = "1-superlig.csv", recursive = TRUE) %>% 
 #   lapply(read_csv) %>% 
 #   bind_rows 
+# 
+sco.1. <- list.files(pattern = "sco.1.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-superlig <- list.files(pattern = "1-superlig.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+sco.2. <- list.files(pattern = "sco.2.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-sco.1. <- list.files(pattern = "sco.1.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+sco.3. <- list.files(pattern = "sco.3.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-sco.2. <- list.files(pattern = "sco.2.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+sco.4. <- list.files(pattern = "sco.4.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-sco.3. <- list.files(pattern = "sco.3.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+sco <- list.files(pattern = ".*(sco).*csv$", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
+# 
+liga <- list.files(pattern = "1-liga.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-sco.4. <- list.files(pattern = "sco.4.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+seriea <- list.files(pattern = "1-seriea.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-sco <- list.files(pattern = ".*(sco).*csv$", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+serieb <- list.files(pattern = "2-serieb.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-liga <- list.files(pattern = "1-liga.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+italy <- list.files(pattern = ".*(serie).*csv$", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-seriea <- list.files(pattern = "-seriea.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
 
-serieb <- list.files(pattern = "1-serieb.csv", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+ere <- list.files(pattern = "1-eredivisie.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-italy <- list.files(pattern = ".*(serie).*csv$", recursive = TRUE) %>% 
-  lapply(read_csv) %>% 
-  bind_rows 
+turk <- list.files(pattern = "1-superlig.csv", recursive = TRUE) %>%
+  lapply(read_csv) %>%
+  bind_rows
 
-zbior <- X1_seriea
+
+zbior <- sco
 #a. dominujący końcowy wynik spotkania (FT) i wynik pierwszej połowy (HT),
 sort_FT <-data.frame(summarise(group_by(zbior,FT),count =n()))
 a <- sort_FT[order(-sort_FT$count),]
@@ -227,7 +282,6 @@ d$przewaga = as.numeric(gsub("\\-", "", d$przewaga))
 
 
 #e. (jeśli jest jeden) zespół, który rozegrał najwięcej spotkań w historii rozgrywek,
-library(dplyr)
 df2 <- data.frame(a = c(zbior[,"Team 1"], zbior[,"Team 2"]))
 sort_most_win <- as.data.frame(table(unlist(df2)))
 e <- sort_most_win[order(-sort_most_win$Freq),]
