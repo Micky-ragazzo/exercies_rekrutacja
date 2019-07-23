@@ -1,0 +1,16 @@
+---
+title: "STS"
+output: html_notebook
+---
+```{r}
+today = as.Date(Sys.time())
+forecasturl = paste('https://github.com/footballcsv/england/archive/', 
+                   '/master.zip', sep='')
+# create a temporary directory
+td = tempdir()
+# create the placeholder file
+tf = tempfile(tmpdir=td, fileext=".zip")
+# download into the placeholder file
+download.file(forecasturl, tf)
+```
+
