@@ -204,8 +204,8 @@ colnames(zbior)[9] <- "X3"
 #zbior$`Team 2` <- str_replace(zbior$`Team 2`, " \\(.*\\)", "")
 #test$`Team 2` <- str_replace(zbior$`Team 2`, " \\(.*\\)", "")
 
-wynik_ht <- ifelse(zbior$X3 > zbior$X4, zbior$`Team 2`, 
-                ifelse(zbior$X3 < zbior$X4, zbior$`Team 1`, 
+wynik_ht <- ifelse(zbior$X3 > zbior$X4, zbior$`Team 1`, 
+                ifelse(zbior$X3 < zbior$X4, zbior$`Team 2`, 
                        ifelse(zbior$X3 == zbior$X4, "draw", "draw")
                 )
 )
